@@ -1,15 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
 import { OlympicService } from './olympic.service';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('OlympicService', () => {
   let service: OlympicService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule]
-    });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi())]
+});
     service = TestBed.inject(OlympicService);
   });
 
