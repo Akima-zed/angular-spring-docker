@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
@@ -7,12 +8,10 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  public olympics$: Observable<any> = of(null);
+export class HomeComponent {
+  public olympics$: Observable<Array<Olympic> | null>;
 
-  constructor(private olympicService: OlympicService) {}
-
-  ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
+  constructor(private olympicService: OlympicService) {
+    this.olympics$ = this.olympicService.olympics$;
   }
 }

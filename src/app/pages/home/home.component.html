@@ -3,17 +3,14 @@
 <p>{{ (olympics$ | async)?.length }} data loaded</p>
 
 <div *ngFor="let olympic of olympics$ | async">
+  <h3>{{ olympic.country }}</h3>
 
-    <h3>{{ olympic.country }}</h3>
+  <div *ngFor="let participation of olympic.participations">
+    <h4>JO de {{ participation.city }} - {{ participation.year }}</h4>
 
-
-    <div *ngFor="let participation of olympic.participations">
-
-        <h4>JO de {{ participation.city }} - {{ participation.year }}</h4>
-
-        <span>{{ participation.athleteCount }} participants ont remporté {{ participation.medalsCount }}
-            médailles</span>
-
-    </div>
-
+    <span
+      >{{ participation.athleteCount }} participants ont remporté
+      {{ participation.medalsCount }} médailles</span
+    >
+  </div>
 </div>
