@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -10,9 +9,11 @@ import {
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      imports: [RouterTestingModule, BrowserModule],
-      providers: [provideHttpClient(withInterceptorsFromDi())],
+      imports: [AppComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(withInterceptorsFromDi()),
+      ],
     }).compileComponents();
   });
 
