@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  angular-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: angular-app
+    container_name: angular-app
+    ports:
+      - "8081:80"
+    restart: unless-stopped
