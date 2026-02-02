@@ -26,8 +26,8 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Copie notre configuration Nginx personnalisée
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copie les fichiers compilés depuis l'étape 1
-COPY --from=build /app/dist /usr/share/nginx/html
+# Copie les fichiers compilés depuis l'étape 1 (dans le dossier browser d'Angular 18+)
+COPY --from=build /app/dist/olympic-games-starter/browser /usr/share/nginx/html
 
 # Port utilisé par Nginx
 EXPOSE 80
