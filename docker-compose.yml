@@ -1,12 +1,22 @@
 version: "3.9"
 
 services:
+  # Service Angular (application frontend)
   angular-app:
+    # Construit l'image depuis le Dockerfile du répertoire courant
     build:
       context: .
       dockerfile: Dockerfile
+    
+    # Nom de l'image créée
     image: angular-app
+    
+    # Nom du conteneur
     container_name: angular-app
+    
+    # Mapping des ports : localhost:8081 → conteneur port 80
     ports:
       - "8081:80"
+    
+    # Redémarre automatiquement si le conteneur crash
     restart: unless-stopped

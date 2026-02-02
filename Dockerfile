@@ -1,35 +1,36 @@
-# =========================
-# STAGE 1 — Build Angular
-# =========================
+# Étape 1 : Compiler l'application Angular
+# Utilise Node.js 22 pour installer les dépendances et compiler TypeScript → JavaScript
 FROM node:22-alpine AS build
 
 WORKDIR /app
 
-# Copier uniquement les fichiers nécessaires au npm install
+# Copie les fichiers de dépendances npm
 COPY package.json package-lock.json ./
 
+# Installe les dépendances (npm ci = version exacte du package-lock.json)
 RUN npm ci
 
-# Copier le reste du projet
+# Copie le code source Angular
 COPY . .
 
-# Build Angular en mode production
+# Compile Angular → Crée le dossier dist/ avec les fichiers HTML/CSS/JS optimisés
 RUN npm run build
 
-# =========================
-# STAGE 2 — Nginx
-# =========================
+# Étape 2 : Servir l'application avec Nginx
+# Utilise Nginx (serveur web léger) pour servir les fichiers statiques
 FROM nginx:1.27-alpine
 
-# Supprimer la config par défaut
+# Supprime la configuration Nginx par défaut
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copier la config nginx
+# Copie notre configuration Nginx personnalisée
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copier le build Angular
+# Copie les fichiers compilés depuis l'étape 1
 COPY --from=build /app/dist /usr/share/nginx/html
 
+# Port utilisé par Nginx
 EXPOSE 80
 
+# Commande pour lancer Nginx en premier plan
 CMD ["nginx", "-g", "daemon off;"]
